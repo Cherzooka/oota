@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+    <link rel="stylesheet" href="leaflet.css">
+    <script src="leaflet.js"></script>
+    
+    <style>
+        #image-map {
+            width: 99%;
+            height: 98%;
+            position: absolute !important;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+    }
+    </style>
+    
+    </head>
+    <body>
+     <div id="image-map"></div>
+
+    <script>
+        var map = L.map('image-map', {
+            minZoom: 1,
+            maxZoom: 4,
+            center: [0, 0],
+            zoom: 1,
+            crs: L.CRS.Simple
+    });
+        var w = 3300,
+            h = 4750,
+            url = 'Velkynvelve.png';
+        var southWest = map.unproject([0, h], map.getMaxZoom()-1);
+        var northEast = map.unproject([w, 0], map.getMaxZoom()-1);
+        var bounds = new L.LatLngBounds(southWest, northEast);
+        L.imageOverlay(url, bounds).addTo(map);
+        map.setMaxBounds(bounds);
+    </script>
+    </body>
+</html>
